@@ -42,23 +42,27 @@ void setup(void) {
   motorTwo->run(RELEASE);
 
   uint8_t SPEED = 200;  //default speed
-  int DURATION_M1 = 1000;  //default duration of M1
-  int DURATION_M2 = 2000;  //default duration
+  int DURATION = 2000;  //default duration
 
-  
+ 
 }
 
 void loop() {
+
   PROXIMITY = analogRead(2); //read value from analog pin 2
   Serial.println(PROXIMITY); //print the value on the screen
   
   if(PROXIMITY < 500) { //if someone is close
-     uint8_t SPEED = 255;  //close speed
-     int DURATION = 500;  //close duration
+
+     SPEED = 255;
+     DURATION = 1000;
   }
+  
   else { //if no one is close
-    uint8_t SPEED = 200;
-    int DURATION = 1000;
+    
+    SPEED = 200;
+    DURATION = 2000;
+
   }
   
   motorOne->setSpeed(SPEED);
