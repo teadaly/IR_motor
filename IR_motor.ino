@@ -19,6 +19,7 @@ Adafruit_DCMotor *motorTwo = AFMS.getMotor(2);
 // Digital pin #2 is the same as Pin D2 see http://arduino.cc/en/Hacking/PinMapping168
 #define IRpin_PIN PIND
 #define IRpin 2
+#define drawline delay
 
 //our test variable
 int PROXIMITY; //from 0 (near) to 1023 (far)
@@ -42,7 +43,7 @@ void setup(void) {
   motorTwo->run(RELEASE);
 
   uint8_t SPEED = 200;  //default speed
-  int DURATION = 2000;  //default duration
+  int LENGTH = 2000;  //default duration
   int STATE = 1; //State 1 (far), State 2 (near)
  
 }
@@ -63,16 +64,16 @@ void loop() {
   //Set the variables for state 2
   if(STATE == 2) { //if someone is close
      SPEED = 255;
-     DURATION = 1000;
+     LENGTH = 1000;
   }
   
   
   motorOne->setSpeed(SPEED);
-  delay(DURATION);
+  drawline(LENGTH);
   motorOne->run(RELEASE);
   
   motorTwo->setSpeed(SPEED);
-  delay(DURATION);
+  drawline(LENGTH);
   motorOne->run(RELEASE);
 }
 
