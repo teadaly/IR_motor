@@ -21,7 +21,7 @@ Adafruit_DCMotor *motorTwo = AFMS.getMotor(2);
 #define IRpin 2
 
 //our test variable
-int PROXIMITY; //from 0 (close) to 1023 (far)
+int PROXIMITY; //from 0 (near) to 1023 (far)
 
 
 void setup(void) {
@@ -43,7 +43,7 @@ void setup(void) {
 
   uint8_t SPEED = 200;  //default speed
   int DURATION = 2000;  //default duration
-
+  int STATE = 1; //State 1 (far), State 2 (near)
  
 }
 
@@ -51,19 +51,21 @@ void loop() {
 
   PROXIMITY = analogRead(2); //read value from analog pin 2
   Serial.println(PROXIMITY); //print the value on the screen
-  
-  if(PROXIMITY < 500) { //if someone is close
 
+  //Set the proximity state
+  if(PROXIMITY > 500) {
+    STATE = 1;
+  }
+  else if(PROXIMITY <= 500) {
+    STATE = 2;
+  }
+
+  //Set the variables for state 2
+  if(STATE == 2) { //if someone is close
      SPEED = 255;
      DURATION = 1000;
   }
   
-  else { //if no one is close
-    
-    SPEED = 200;
-    DURATION = 2000;
-
-  }
   
   motorOne->setSpeed(SPEED);
   delay(DURATION);
