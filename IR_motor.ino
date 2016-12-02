@@ -38,27 +38,29 @@ void setup(void) {
 
 
   // Set M2 speed to start, from 0 (off) to 255 (max)
-  motorTwo->setSpeed(255);
-  motorTwo->run(FORWARD);
-  motorTwo->run(RELEASE);
+  //motorTwo->setSpeed(255);
+  //motorTwo->run(FORWARD);
+  //motorTwo->run(RELEASE);
 
-  uint8_t SPEED = 200;  //default speed
-  int LENGTH = 2000;  //default duration
-  int STATE = 1; //State 1 (far), State 2 (near)
- 
 }
 
 void loop() {
+  
+  uint8_t SPEED = 200;  //default speed
+  int LENGTH = 2000;  //default duration
+  int STATE = 1; //State 1 (far), State 2 (near)
 
   PROXIMITY = analogRead(2); //read value from analog pin 2
   Serial.println(PROXIMITY); //print the value on the screen
 
   //Set the proximity state
-  if(PROXIMITY > 500) {
-    STATE = 1;
-  }
-  else if(PROXIMITY <= 500) {
+  if(PROXIMITY > 200) {
     STATE = 2;
+    Serial.println(STATE);
+  }
+  else if(PROXIMITY <= 200) {
+    STATE = 1;
+    Serial.println(STATE);
   }
 
   //Set the variables for state 2
@@ -66,15 +68,16 @@ void loop() {
      SPEED = 255;
      LENGTH = 1000;
   }
+
   
-  
+  motorOne->run(FORWARD);
   motorOne->setSpeed(SPEED);
   drawline(LENGTH);
   motorOne->run(RELEASE);
   
-  motorTwo->setSpeed(SPEED);
-  drawline(LENGTH);
-  motorOne->run(RELEASE);
+ // motorTwo->setSpeed(SPEED);
+ // drawline(LENGTH);
+ // motorOne->run(RELEASE);
 }
 
 
