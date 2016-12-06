@@ -44,12 +44,19 @@ void setup(void) {
 
 }
 
+/*
+ *  Return a random integer within an inclusive range.
+ */
+int randrange (low: int, high: int) {
+  return rand() % (high - low + 1) + low;
+}
+
 void loop() {
   
-  uint8_t SPEED = 150;  //STATE 1 speed
-  int LENGTH_1 = 1500;  //STATE 1 motor 1 length
-  int LENGTH_2 = 2000;  //STATE 1 motor 2 length
-  int STATE = 1; //State 1 (far), State 2 (near)
+  uint8_t SPEED;  //STATE 1 speed
+  int LENGTH_1;  //STATE 1 motor 1 length
+  int LENGTH_2;  //STATE 1 motor 2 length
+  int STATE; //State 1 (far), State 2 (near)
 
   PROXIMITY = analogRead(2); //read value from analog pin 2
   Serial.println(PROXIMITY); //print the value on the screen
@@ -69,9 +76,17 @@ void loop() {
      SPEED = 220;
      LENGTH_1 = 700;
      LENGTH_2 = 1000;
+  } else {
+     SPEED = 150;
+     //LENGTH_1 = 1500;
+
+     //Random length between 50 and 1500
+     LENGTH_1 = rand() % 1451 + 50
+
+     //Random length between 1000 and 2000
+     LENGTH_2 = randrange(1000, 2000);
   }
 
-  //random
   //Draw motorOne line (clear)
   motorOne->run(FORWARD);
   motorOne->setSpeed(SPEED);
