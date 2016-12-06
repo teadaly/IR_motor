@@ -38,16 +38,17 @@ void setup(void) {
 
 
   // Set M2 speed to start, from 0 (off) to 255 (max)
-  //motorTwo->setSpeed(255);
-  //motorTwo->run(FORWARD);
-  //motorTwo->run(RELEASE);
+  motorTwo->setSpeed(255);
+  motorTwo->run(FORWARD);
+  motorTwo->run(RELEASE);
 
 }
 
 void loop() {
   
-  uint8_t SPEED = 200;  //default speed
-  int LENGTH = 2000;  //default duration
+  uint8_t SPEED = 150;  //STATE 1 speed
+  int LENGTH_1 = 1500;  //STATE 1 motor 1 length
+  int LENGTH_2 = 2000;  //STATE 1 motor 2 length
   int STATE = 1; //State 1 (far), State 2 (near)
 
   PROXIMITY = analogRead(2); //read value from analog pin 2
@@ -65,19 +66,22 @@ void loop() {
 
   //Set the variables for state 2
   if(STATE == 2) { //if someone is close
-     SPEED = 255;
-     LENGTH = 1000;
+     SPEED = 220;
+     LENGTH_1 = 700;
+     LENGTH_2 = 1000;
   }
 
-  
+  //Draw motorOne line (clear)
   motorOne->run(FORWARD);
   motorOne->setSpeed(SPEED);
-  drawline(LENGTH);
+  drawline(LENGTH_1);
   motorOne->run(RELEASE);
-  
- // motorTwo->setSpeed(SPEED);
- // drawline(LENGTH);
- // motorOne->run(RELEASE);
+
+  //Draw motorTwo line (black)
+  motorTwo->run(FORWARD);
+  motorTwo->setSpeed(SPEED);
+  drawline(LENGTH_2);
+  motorTwo->run(RELEASE);
 }
 
 
