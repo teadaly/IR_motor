@@ -71,6 +71,7 @@ void loop() {
      LENGTH_2 = 1000;
   }
 
+  //random
   //Draw motorOne line (clear)
   motorOne->run(FORWARD);
   motorOne->setSpeed(SPEED);
